@@ -1,0 +1,80 @@
+{{template "header" }}
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+{{template "body-navbar"}}
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="appro">Approvisionnement</a>
+            </li>
+            <li class="breadcrumb-item active">Historique des approvisionnements</li>
+        </ol>
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-table"></i> Historique des opérations d'approvisionnement et leurs coûts</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <tbody id="myTable">
+                        {{template "info2" .}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer small text-muted"><SCRIPT LANGUAGE="JavaScript">
+                var maintenant=new Date();
+                var jour=maintenant.getDate();
+                var mois=maintenant.getMonth()+1;
+                var an=maintenant.getFullYear();
+                document.write("Mis à jour le ",jour,"/",mois,"/",an,".");
+            </SCRIPT></div>
+        </div>
+
+
+        <footer class="sticky-footer">
+            <div class="container">
+                <div class="text-center">
+                    <small>Copyright © Waystocap 2018</small>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajout</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">L'ajout s'est éffectué avec succès</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" data-dismiss="modal">Ok!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="webPages/vendor/jquery/jquery.min.js"></script>
+<script src="webPages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="webPages//vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Page level plugin JavaScript-->
+<script src="webPages/vendor/datatables/jquery.dataTables.js"></script>
+<script src="webPages/vendor/datatables/dataTables.bootstrap4.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="webPages/js/sb-admin-eph.js"></script>
+<!-- Custom scripts for this page-->
+<script src="webPages/js/sb-admin-datatables.min.js"></script>
+</body>
+</html>

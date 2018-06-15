@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WaystoCap</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="webPages/img/w.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="webPages/Login_v1/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="webPages/Login_v1/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="webPages/Login_v1/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="webPages/Login_v1/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="webPages/Login_v1/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="webPages/Login_v1/css/util.css">
+    <link rel="stylesheet" type="text/css" href="webPages/Login_v1/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="form-area">
+            <form action="/ChangeLogin" method="post" class="">
+                <h3>Changer nom d'utilisateur/mot de passe</h3><br><br>
+                <div class="row">
+                    <label class="col-md-5 control-label">Actuel nom d'utilisateur</label>
+                    <div class="col-md-6 mb-3">
+                        <input type="username" class="form-control" name="oldusername">
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-md-5 control-label">Actuel mot de passe</label>
+                    <div class="col-md-6 mb-3">
+                        <input id="password-field" type="password" class="form-control" name="oldpassword">
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password" onclick="abc('password-field')"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-md-5 control-label">Nouveau nom d'utilisateur</label>
+                    <div class="col-md-6 mb-3">
+                        <input type="username" class="form-control" name="newusername">
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-md-5 control-label">Nouveau mot de passe</label>
+                    <div class="col-md-6 mb-3">
+                        <input id="password-field2" type="password" class="form-control" name="newpassword">
+                        <span toggle="#password-field2" class="fa fa-fw fa-eye field-icon toggle-password" onclick="abc('password-field2')"></span>
+                    </div>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn">
+                        Change
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function  abc(id) {
+        var input=document.getElementById(id);
+        if(input.getAttribute("type") == "password"){
+            input.setAttribute("type", "text");
+        }else {
+            input.setAttribute("type", "password");
+        }
+    }
+   </script>
+
+<script src="webPages/css/sb-admin.css"></script>
+<!--===============================================================================================-->
+<script src="webPages/Login_v1/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="webPages/Login_v1/vendor/bootstrap/js/popper.js"></script>
+<script src="webPages/Login_v1/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="webPages/Login_v1/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="webPages/Login_v1/vendor/tilt/tilt.jquery.min.js"></script>
+<script >
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+<!--===============================================================================================-->
+<script src="webPages/Login_v1/js/main.js"></script>
+
+</body>
+</html>

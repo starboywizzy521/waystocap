@@ -1,0 +1,34 @@
+{{define "info"}}
+<script>
+    var table=document.getElementById("myTable");
+    {{ range $i,$hj:= .P}}
+        var tr=document.createElement("tr");
+        tr.setAttribute("id","{{$i}}");
+        var td1=document.createElement("td");
+        td1.innerText={{.Code}};
+        td1.setAttribute("hidden","hidden");
+        var td2=document.createElement("td");
+        td2.innerText={{.Libelle}};
+        var td3=document.createElement("td");
+        td3.innerText={{.Quantite}};
+        var td4=document.createElement("td");
+        td4.innerText={{.Prix}};
+        var td5=document.createElement("td");
+        td5.innerText={{.Date_entree}};
+        var td6=document.createElement("td");
+        td6.innerText={{.Categorie}};
+        var td7=document.createElement("td");
+        td7.innerText={{.Benef}};
+        var tdIdOP=document.createElement("td");
+        tdIdOP.innerText={{.IdOP}};
+
+        tdIdOP.setAttribute("hidden","hidden");
+
+        var td8=document.createElement("td");
+        td8.innerHTML="<button onclick=\"document.getElementById('retour').setAttribute('onclick','OperatRetour({{$i}})')\" class=\"btn btn-danger btn-remove\" type=\"button\" data-toggle=\"modal\" data-target=\"#RetourModal\" ><i class=\"fa fa-fw fa-minus\"></i> Retour</button>";
+        td8.style.border = 0;
+
+        table.appendChild(tr);tr.appendChild(td1);tr.appendChild(td2);tr.appendChild(td3);tr.appendChild(td4);tr.appendChild(td5);tr.appendChild(td6);tr.appendChild(td7);tr.appendChild(td8);tr.appendChild(tdIdOP);
+    {{end}}
+</script>
+{{end}}

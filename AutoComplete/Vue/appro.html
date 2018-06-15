@@ -1,0 +1,331 @@
+{{template "header" }}
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+{{template "body-navbar"}}
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="appro">Approvisionnement</a>
+            </li>
+            <li class="breadcrumb-item active">Entrée de produits en stock</li>
+        </ol>
+
+        <div class="ephrau" align="center">
+            <div class="col-md-12" align="left">
+                <br style="clear:both">
+                <h3 style="margin-bottom: 25px; text-align: center;">Approvisionnement</h3>
+                <div class="row"><div class="col-md-auto">
+                    <form class="form-inline" role="form" action="/autocomplete" method="POST" autocomplete="off" >
+                        <div class="form-group">
+                            <div class="col-md-auto">
+                                <input type="text" class="form-control" id="name" name="Code_BARRE" placeholder="Code Barre" >
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-auto">
+                                <div class="autocomplete" style="width:100%;">
+                                    <input id="myInput" class="form-control inpauto" type="text" name="Libelle" placeholder="Libellé">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-auto">
+                                <div class="autocomplete" style="width:100%;">
+                                    <input class="form-control" type="number" id="quantite" name="autocomplete" placeholder="Qte" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-auto">
+                                    <input class="form-control" type="text" id="prix" name="prix" placeholder="Prix">
+                            </div>
+                        </div>
+                    </form></div>
+                <div class="col-md-auto">
+                    <button class="btn btn-secondary pull-right" onclick="myCreateFunction()">Ajouter</button>
+                </div></div>
+                <br><br><br>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="myTable" width="100%" cellspacing="0" style="display: none">
+                        <thead>
+                        <tr>
+                            <th>Code barre</th>
+                            <th>Libellé</th>
+                            <th>Quantité</th>
+                            <th>Prix Unitaire en dirhams</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <button class="btn btn-primary" onclick="SubmitTable()">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+<footer class="sticky-footer">
+    <div class="container">
+        <div class="text-center">
+            <small>Copyright © Waystocap 2018</small>
+        </div>
+    </div>
+</footer>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="../../webPages/login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="webPages/vendor/jquery/jquery.min.js"></script>
+<script src="webPages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="webPages/vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="webPages/js/sb-admin-eph.js"></script>
+
+</body>
+</html>
+
+
+<script>
+
+    var x;
+    var qte;
+    var prix;
+    function myCreateFunction() {
+        var table = document.getElementById("myTable");
+        if(table.style.display==="none"){
+            table.style.display="table";
+        }
+        var array = document.getElementById("myTable").rows;
+                var long=array.length;
+        qte=document.getElementById("quantite").value;
+        prix=document.getElementById("prix").value;
+        var v=0;
+
+            if
+            (v == 0) {
+                for (i = 0; i < ac.length; i++) {
+                    if (x == ac[i][1]) {
+                        if (!qte){
+                            alert("vous devez entrer une quantité");
+                            break;
+                        }
+                        else{
+                            if(CheckRowExist(ac[i][1])){
+                                alert("cette ligne a déjà été sélectionnée");
+                                break;
+                            }else{
+                                var row = table.insertRow(table.rows.length);
+                                var cell1 = row.insertCell(0);
+                                var cell2 = row.insertCell(1);
+                                var cell3 = row.insertCell(2);
+                                var cell4 = row.insertCell(3);
+                                cell1.innerHTML = ac[i][0];
+                                cell2.innerHTML = ac[i][1];
+                                cell3.innerHTML = qte;
+                                if (!prix) {
+                                    cell4.innerHTML = ac[i][3];
+                                }
+                                else {
+                                    cell4.innerHTML = prix;
+                                }
+
+                                break;
+                            }
+                        }
+
+                    }
+                }
+            }
+    }
+
+    function detectCB() {
+        cbr=document.getElementById("code").value;
+
+
+        for (i = 0; i < ac.length; i++) {
+
+            if (cbr == ac[i][4]) {
+                document.getElementById("myInput").value = ac[i][1];
+            }
+        }
+        x= document.getElementById("myInput").value;
+    }
+
+    function CheckRowExist(cod) {
+        var tab = document.getElementById("myTable");
+        for (z=0;z<tab.rows.length;z++){
+            if (cod==tab.rows[z].cells[1].innerHTML){
+                console.log("ligne existante");
+                return true;
+            }
+        }
+    }
+
+    function SubmitTable(){
+
+        var table = document.getElementById("myTable");
+        var tableligne="";
+        for (i=1;i<table.rows.length;i++){
+            for(j=0;j<table.rows[i].cells.length;j++){
+                tableligne=tableligne+table.rows[i].cells[j].innerHTML+" ";
+            }
+            tableligne=tableligne+"/";
+        }
+        $.ajax({
+            url: 'OperationApprovisionnement',
+            type: 'post',
+            dataType: 'json',
+            data : JSON.stringify(tableligne),
+            success : function(data) {
+                $('#result').html(data);
+            },
+        });
+        document.location.href="HistoAppro";
+    }
+
+    function autocomplete(inp, arr) {
+        /*the autocomplete function takes two arguments,
+        the text field element and an array of possible autocompleted values:*/
+        var currentFocus;
+        /*execute a function when someone writes in the text field:*/
+        inp.addEventListener("input", function(e) {
+            var a, b, i, val = this.value;
+            /*close any already open lists of autocompleted values*/
+            closeAllLists();
+            if (!val) { return false;}
+            currentFocus = -1;
+            /*create a DIV element that will contain the items (values):*/
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            /*append the DIV element as a child of the autocomplete container:*/
+            this.parentNode.appendChild(a);
+            /*for each item in the array...*/
+            for (i = 0; i < arr.length; i++) {
+                /*check if the item starts with the same letters as the text field value:*/
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    /*create a DIV element for each matching element:*/
+                    b = document.createElement("DIV");
+                    /*make the matching letters bold:*/
+                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length);
+                    /*insert a input field that will hold the current array item's value:*/
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    /*execute a function when someone clicks on the item value (DIV element):*/
+                    b.addEventListener("click", function(e) {
+                        /*insert the value for the autocomplete text field:*/
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        x=this.getElementsByTagName("input")[0].value;
+                        /*close the list of autocompleted values,
+                        (or any other open lists of autocompleted values:*/
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+                }
+            }
+        });
+        /*execute a function presses a key on the keyboard:*/
+        inp.addEventListener("keydown", function(e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                /*If the arrow DOWN key is pressed,
+                increase the currentFocus variable:*/
+                currentFocus++;
+                /*and and make the current item more visible:*/
+                addActive(x);
+            } else if (e.keyCode == 38) { //up
+                /*If the arrow UP key is pressed,
+                decrease the currentFocus variable:*/
+                currentFocus--;
+                /*and and make the current item more visible:*/
+                addActive(x);
+            } else if (e.keyCode == 13) {
+                /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                e.preventDefault();
+                if (currentFocus > -1) {
+                    /*and simulate a click on the "active" item:*/
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+        function addActive(x) {
+            /*a function to classify an item as "active":*/
+            if (!x) return false;
+            /*start by removing the "active" class on all items:*/
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            /*add class "autocomplete-active":*/
+            x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+            /*a function to remove the "active" class from all autocomplete items:*/
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
+            }
+        }
+        function closeAllLists(elmnt) {
+            /*close all autocomplete lists in the document,
+            except the one passed as an argument:*/
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+        /*execute a function when someone clicks in the document:*/
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
+    }
+    var ab = new Array();
+    var ac=new Array();
+    var i=0;
+    {{ range $i,$hj:= $}}
+    ab[i]={{.Libelle}};
+    ac[i]=new Array();
+    ac[i][0]={{.Code}};
+    ac[i][1]=ab[i];
+    ac[i][2]={{.Quantite}};
+    ac[i][3]={{.Prix}};
+    i++;
+    {{end}}
+
+    autocomplete(document.getElementById("myInput"), ab);
+
+</script>

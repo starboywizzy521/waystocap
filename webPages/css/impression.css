@@ -1,0 +1,7 @@
+.print, .text-center, #update, .breadcrumb{
+    display:none;
+}
+
+tfoot{
+    display: none;
+}

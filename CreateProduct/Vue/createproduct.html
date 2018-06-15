@@ -1,0 +1,199 @@
+{{template "header" }}
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+{{template "body-navbar"}}
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="appro">Approvisionnement</a>
+            </li>
+            <li class="breadcrumb-item active">Créer un nouveau produit</li>
+        </ol>
+    </div>
+    <div class="ephrau" align="center">
+        <div class="col-md-8 form-area">
+            <form action="/">
+                <br>
+                <div class="form-inline" align="center">
+                    <div class="form-group mx-sm-3 mb-2" width="20%">
+                        <label for="codebarre" class="ml-sm-3">Code barre:</label>
+                        <input type="text" class="form-control mb-2 ml-md-4" id="codebarre">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2" width="20%">
+                        <label for="libelle" class="ml-sm-4">Libellé:</label>
+                        <input type="text" class="form-control mb-2 ml-sm-2"  id="libelle">
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2"  width="50px">
+
+                        <label for="prixunitaire" class="ml-sm-4">Prix Unitaire:</label>
+                        <input type="text" class="form-control ml-sm-2" id="prixunitaire">
+
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2" width="20%">
+                        <label for="seuil" class="ml-sm-4">Seuil:</label>
+                        <input type="text" class="form-control mb-2 ml-md-4" id="seuil">
+                    </div>
+                </div>
+                <br>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label for="categorie" class=" ml-sm-3">Selectionner une catégorie:</label>
+                        <select class="form-control mb-2 ml-sm-2" id="categorie" onchange="addFields()">
+                            <option value="" hidden>différentes catégories</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-secondary mb-2 ml-sm-2" onclick="abc()">Créer categorie</button>
+                </div>
+                <div id="containercaract" class="form-inline">
+
+                </div>
+                <br>
+                <button type="button" class="btn btn-primary" onclick="createproduct()">Créer le produit</button>
+            </form>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+                <small>Copyright © Your Website 2018</small>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="../../webPages/login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="webPages/vendor/jquery/jquery.min.js"></script>
+<script src="webPages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="webPages/vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="webPages/js/sb-admin-eph.js"></script>
+
+</body>
+</html>
+
+        <script>
+
+            var databasecategory = new Array();
+            var tab2dim=new Array();
+            var j=0;
+            var checKExistCategory="ugdf";
+            var caractNumber;
+
+            {{ range $i,$hj:= $}}
+            databasecategory[{{$i}}]={{.Category}};
+            if(checKExistCategory!=databasecategory[{{$i}}]){
+                chargeselect(databasecategory[{{$i}}]);
+                checKExistCategory=databasecategory[{{$i}}];
+            }
+            tab2dim[j]=new Array();
+            tab2dim[j][0]={{.Category}};
+            tab2dim[j][1]={{.Caracteristique}};
+            j++;
+            {{end}}
+
+            function chargeselect(z){
+                var x = document.getElementById("categorie");
+                var option = document.createElement("option");
+                option.text = z;
+                x.add(option);
+            }
+
+            function abc() {
+                document.location.href="createcategory";
+            }
+
+            function addFields(){
+                var container = document.getElementById("containercaract");
+
+                var categoryselected=document.getElementById("categorie").selectedIndex;
+                var allcategory = document.getElementById("categorie").options;
+                while (container.hasChildNodes()) {
+                    container.removeChild(container.lastChild);
+                }
+                caractNumber=0;
+                for(k=0;k<tab2dim.length;k++){
+                    if(allcategory[categoryselected].text==tab2dim[k][0]){
+                        var label= document.createElement("label");
+                        label.type="label";
+                        label.setAttribute("class","ml-sm-3");
+                        label.setAttribute("id","caractlabel"+caractNumber);
+                        label.innerText=tab2dim[k][1]["String"];
+                        container.appendChild(label);
+                        var input = document.createElement("input");
+                        input.setAttribute("class","form-control mb-2 ml-sm-2");
+                        input.setAttribute("id","caracteristique"+caractNumber);
+                        input.type = "text";
+                        container.appendChild(input);
+                        container.appendChild(document.createElement("br"));
+                        caractNumber++;
+                    }
+                }
+            }
+
+            function createproduct(){
+                var codebarre=document.getElementById("codebarre").value;
+                var libelle=document.getElementById("libelle").value;
+                var prixunitaire=document.getElementById("prixunitaire").value;
+                var seuil=document.getElementById("seuil").value;
+                var category=document.getElementById("categorie").value;
+
+                var caracteristique={};
+                var libellecarac=[];
+
+                if(!codebarre && !libelle){
+                    alert("vous devez obligatoirement entrer soit le Libellé du produit, soit le code barre");
+                    return;
+                }
+                if(!category){
+                    alert("vous devez sélectionner ou créer une catégorie");
+                    return;
+                }
+                for (i=0;i<caractNumber;i++){
+                    caracteristique[document.getElementById("caractlabel"+i).textContent]=document.getElementById("caracteristique"+i).value;
+                    libellecarac[i]=document.getElementById("caractlabel"+i).textContent;
+                }
+                $.ajax({
+                    url: 'createproduct',
+                    type: 'post',
+                    dataType: 'html',
+                    data : {codebarre: codebarre,libelle: libelle,prixunitaire: prixunitaire,seuil: seuil,category: category,libellecarac: JSON.stringify(libellecarac),valeurcaracteristique: caracteristique},
+                    success : function(data) {
+                    },
+                });
+                document.location.href="tables";
+            }
+        </script>

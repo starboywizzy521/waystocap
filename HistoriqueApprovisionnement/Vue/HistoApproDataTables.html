@@ -1,0 +1,62 @@
+{{define "info2"}}
+{{if .P}}
+<script>
+    var v="",i=0,v2=0, j=0;
+    {{if .Total}} var T={{.Total}}{{end}}
+    {{if .Ope}} var OP={{.Ope}} {{end}}
+</script>
+{{ range .P}}
+<script>
+
+    var html1="<tr><td colspan=\"6\"><div class=\"mb-0 mt-4\">\n" +
+            "    <i class=\"fa fa-calendar-check-o\"></i>&nbsp;  Opération "+OP[j]+" &nbsp; &nbsp;  {{.Date_entree}} </div>\n" +
+            "  </td></tr><tr>\n"+
+            "<th>Code</th>\n"+
+            "<th>Libelle</th>\n"+
+            "<th>Quantite</th>\n"+
+            "<th>Prix</th>\n"+
+            "<th>Date d'entree</th>\n"+
+            "<th>Categorie</th></tr>\n"+
+            "    <tr>\n" +
+            "        <td>{{.Code}}</td>\n" +
+            "        <td>{{.Libelle}}</td>\n" +
+            "        <td>{{.Quantite}}</td>\n" +
+            "        <td>{{.Prix}}</td>\n" +
+            "        <td>{{.Date_entree}}</td>\n" +
+            "        <td>{{.Categorie}}</td></tr>";
+    var html2="<tr>\n" +
+            "    <td>{{.Code}}</td>\n" +
+            "    <td>{{.Libelle}}</td>\n" +
+            "    <td>{{.Quantite}}</td>\n" +
+            "    <td>{{.Prix}}</td>\n" +
+            "    <td>{{.Date_entree}}</td>\n" +
+            "    <td>{{.Categorie}}</td>\n" +
+            "</tr>";
+    var html3="<tr>\n" +
+            "<td COLSPAN='5'></td>\n" +
+
+            "<td  bgcolor='#55ef42'>T="+T[i]+"</td>\n" +
+            "</tr>";
+    if(v!=OP[j])
+    {
+        v=OP[j];
+        if (v2==1){ document.write(html3); i++};
+        document.write(html1);
+
+        v2=1
+    }
+    else{
+        document.write(html2);
+        v=OP[j]
+
+    }
+    j++;
+</script>
+{{end}}
+<script> document.write("<tr>\n" +
+        "<td COLSPAN='5'></td>\n" +
+
+        "<td bgcolor='#55ef42'>T="+T[i]+"</td>\n" +
+        "</tr>")</script>
+{{end}}
+{{end}}

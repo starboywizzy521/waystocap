@@ -1,0 +1,166 @@
+{{template "header" }}
+<link rel="stylesheet" href="webPages/css/modif.css">
+<style type="text/css">
+    .bs-example {
+        margin: 20px;
+    }
+    .form-control:focus {
+        border-color: orange;
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px orange;
+    }
+</style>
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+{{template "body-navbar"}}
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="tables">Tables</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="Détailsduproduit">Details du Produit</a>
+            </li>
+            <li class="breadcrumb-item active">Modifier</li>
+        </ol>
+
+        <div class="container">
+            <div class="ephrau" align="center">
+                <div class="col-md-7">
+                    <div class="form-area">
+                        <form role="form" action="/misajour" method="GET">
+                            <br style="clear:both">
+                            <h3 style="margin-bottom: 25px; text-align: center;">Modifier le produit</h3>
+                            <table class="" id="myTable">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><label class="ephrauLabel">Code barre:</label></td>
+                                    <td><input type="text" class="form-control" id="Code" name="Code" value="{{.Code}}" placeholder="Code" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="ephrauLabel">Libellé:</label></td>
+                                    <td><input type="text" class="form-control" id="Libelle" name="Libelle" value="{{.Libelle}}" placeholder="Libellé" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="ephrauLabel">Prix Unitaire:</label></td>
+                                    <td><input type="text" class="form-control" id="Prix" name="Prix" value="{{.Prix}}"  placeholder="Prix Unitaire" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="ephrauLabel">Date d'entrée:</label></td>
+                                    <td><input type="date" class="form-control" id="DateEntre" name="DateEntre" value="{{.Date_entree}}"  placeholder="Date d'entrée" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="ephrauLabel">Seuil:</label></td>
+                                    <td><input type="text" class="form-control" id="Seuil" name="Seuil" value="{{.Seuil}}" placeholder="Seuil" required></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <input hidden type="text" class="form-control" id="Categorie" name="Categorie" value="{{.Categorie}}" placeholder="Categorie" required>
+                            <input hidden type="text" class="form-control" id="Quantite" name="Quantite" value="{{.Quantite}}" placeholder="Quantite" required>
+                        </form>
+                        <button class="btn pull-right" type="button" name="valider" style="background-color: #ff7b0a" onclick="senddata()">Valider</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="sticky-footer">
+            <div class="container">
+                <div class="text-center">
+                    <small>Copyright © WaystoCap 2018</small>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajout</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">L'ajout s'est éffectué avec succès</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" data-dismiss="modal">Ok!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="webPages/vendor/jquery/jquery.min.js"></script>
+<script src="webPages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="webPages/vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="webPages/js/sb-admin-eph.js"></script>
+</body>
+</html>
+
+<script>
+    var nomcaracteristique = {{.NomCaracteristique}};
+    var valeurcaracteristique={{.ValeurCaracteristique}};
+    var table=document.getElementById("myTable");
+
+    var nomcaracstring=[];
+    var input0=document.createElement("input");
+    input0.setAttribute("type","text");
+    input0.setAttribute("hidden","hidden");
+    input0.setAttribute("name","NomCaracteristique");
+
+    if(nomcaracteristique!=null){
+        for(i=0;i<nomcaracteristique.length;i++){
+
+            nomcaracstring[i]=nomcaracteristique[i].String;
+
+            var tr=document.createElement("tr");
+            var td1=document.createElement("td");
+            var td2=document.createElement("td");
+
+            var label1=document.createElement("label");
+            label1.setAttribute("class","ephrauLabel");
+            label1.innerText=nomcaracteristique[i].String+":";
+
+            var input=document.createElement("input");
+            input.setAttribute("type","text");
+            input.setAttribute("class","form-control");
+            input.setAttribute("id","valeurcaracteristique"+nomcaracteristique[i].String);
+
+            if(valeurcaracteristique!=null && valeurcaracteristique[i]){
+                input.setAttribute("value",valeurcaracteristique[i].String);
+            }
+            table.appendChild(tr);tr.appendChild(td1);td1.appendChild(label1);tr.appendChild(td2);td2.appendChild(input);
+        }
+    }
+
+
+    input0.setAttribute("value",nomcaracstring);
+    table.appendChild(input0);
+
+    function senddata(){
+        var data=[];
+        for (j=0;j<nomcaracstring.length;j++){
+
+            data[j]=document.getElementById("valeurcaracteristique"+nomcaracteristique[j].String).value;
+
+        }
+        $.ajax({
+            url: 'misajour',
+            type: 'post',
+            dataType: 'html',
+            data : {Code: document.getElementById("Code").value,Libelle: document.getElementById("Libelle").value,Prix: document.getElementById("Prix").value,Seuil: document.getElementById("Seuil").value,Categorie: document.getElementById("Categorie").value,DateEntre: document.getElementById("DateEntre").value,Quantite: document.getElementById("Quantite").value,NomCaracteristique: JSON.stringify(nomcaracstring),valeurcaracteristique: JSON.stringify(data)},
+            success : function(data) {
+            },
+        });
+       document.location.href="tables";
+    }
+</script>

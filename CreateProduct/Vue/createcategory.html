@@ -1,0 +1,281 @@
+{{template "header" }}
+
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+{{template "body-navbar"}}
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Blank Page</li>
+        </ol>
+    </div>
+    <div class="container">
+    <div class="ephrau" align="center">
+        <div class="col-md-6 form-area">
+        <form>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="category" class="ml-sm-3">Catégorie :</label>
+                    <input type="text" class="form-control mb-3 ml-lg-5"  id="category">
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="caracteristique1" class="ml-sm-3">Caractéristique 1:</label>
+                    <div class="input-group">
+                    <input type="text" class="form-control mb-2 ml-sm-2"  id="caracteristique1">
+                    <span class="input-group-append mb-2">
+                            <button class="btn btn-success btn-add" type="button" onclick="addFields()">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div id="formm"></div>
+            <div class="form-inline">
+                <div class="form-group" style="align-content: center">
+                    <button type="button" class="btn btn-primary pull-right" onclick="CreateCategory()">Créer</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+    </div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+<footer class="sticky-footer">
+    <div class="container">
+        <div class="text-center">
+            <small>Copyright © Your Website 2018</small>
+        </div>
+    </div>
+</footer>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="../../webPages/login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="webPages/vendor/jquery/jquery.min.js"></script>
+<script src="webPages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="webPages/vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="webPages/js/sb-admin-eph.js"></script>
+
+</body>
+</html>
+
+        <script>
+            var caractNumber=2;
+
+            function addFields(){
+                var container = document.getElementById("formm");
+
+                /*while (container.hasChildNodes()) {
+                    container.removeChild(container.lastChild);
+                }*/
+                var div=document.createElement("div");
+                div.className="form-inline";
+                container.appendChild(div);
+
+                var div2=document.createElement("div");
+                div2.className="form-group";
+                div.appendChild(div2);
+
+                var label=document.createElement("label");
+                label.setAttribute("class","ml-sm-3");
+                label.innerText="Caractéristique "+caractNumber+":";
+
+
+                var div3=document.createElement("div");
+                div3.className="input-group";
+
+                var input=document.createElement("input");
+                input.type="text";
+                input.setAttribute("class","form-control mb-2 ml-sm-2");
+                input.setAttribute("id","caracteristique"+caractNumber);
+
+                var span=document.createElement("span");
+                span.setAttribute("class","input-group-append mb-2");
+
+                var button=document.createElement("button");
+                button.type="button";
+                button.setAttribute("class","btn btn-success btn-add");
+                button.setAttribute("onclick","addFields()");
+                button.setAttribute("id",caractNumber);
+
+                var i=document.createElement("i");
+                i.setAttribute("class","fa fa-plus");
+
+
+                div2.appendChild(label);div2.appendChild(div3);div3.appendChild(input);div3.appendChild(span);span.appendChild(button); button.appendChild(i);
+                autocomplete(document.getElementById(caractNumber), ab);
+
+
+                caractNumber++;
+            }
+
+            function autocomplete(inp, arr) {
+                /*the autocomplete function takes two arguments,
+                the text field element and an array of possible autocompleted values:*/
+                var currentFocus;
+                /*execute a function when someone writes in the text field:*/
+                inp.addEventListener("input", function(e) {
+                    var a, b, i, val = this.value;
+                    /*close any already open lists of autocompleted values*/
+                    closeAllLists();
+                    if (!val) { return false;}
+                    currentFocus = -1;
+                    /*create a DIV element that will contain the items (values):*/
+                    a = document.createElement("DIV");
+                    a.setAttribute("id", this.id + "autocomplete-list");
+                    a.setAttribute("class", "autocomplete-items");
+                    /*append the DIV element as a child of the autocomplete container:*/
+                    this.parentNode.appendChild(a);
+                    /*for each item in the array...*/
+                    for (i = 0; i < arr.length; i++) {
+                        /*check if the item starts with the same letters as the text field value:*/
+                        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                            /*create a DIV element for each matching element:*/
+                            b = document.createElement("DIV");
+                            /*make the matching letters bold:*/
+                            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                            b.innerHTML += arr[i].substr(val.length);
+                            /*insert a input field that will hold the current array item's value:*/
+                            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                            /*execute a function when someone clicks on the item value (DIV element):*/
+                            b.addEventListener("click", function(e) {
+                                /*insert the value for the autocomplete text field:*/
+                                inp.value = this.getElementsByTagName("input")[0].value;
+                                x=this.getElementsByTagName("input")[0].value;
+                                /*close the list of autocompleted values,
+                                (or any other open lists of autocompleted values:*/
+                                closeAllLists();
+                            });
+                            a.appendChild(b);
+                        }
+                    }
+                });
+                /*execute a function presses a key on the keyboard:*/
+                inp.addEventListener("keydown", function(e) {
+                    var x = document.getElementById(this.id + "autocomplete-list");
+                    if (x) x = x.getElementsByTagName("div");
+                    if (e.keyCode == 40) {
+                        /*If the arrow DOWN key is pressed,
+                        increase the currentFocus variable:*/
+                        currentFocus++;
+                        /*and and make the current item more visible:*/
+                        addActive(x);
+                    } else if (e.keyCode == 38) { //up
+                        /*If the arrow UP key is pressed,
+                        decrease the currentFocus variable:*/
+                        currentFocus--;
+                        /*and and make the current item more visible:*/
+                        addActive(x);
+                    } else if (e.keyCode == 13) {
+                        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                        e.preventDefault();
+                        if (currentFocus > -1) {
+                            /*and simulate a click on the "active" item:*/
+                            if (x) x[currentFocus].click();
+                        }
+                    }
+                });
+                function addActive(x) {
+                    /*a function to classify an item as "active":*/
+                    if (!x) return false;
+                    /*start by removing the "active" class on all items:*/
+                    removeActive(x);
+                    if (currentFocus >= x.length) currentFocus = 0;
+                    if (currentFocus < 0) currentFocus = (x.length - 1);
+                    /*add class "autocomplete-active":*/
+                    x[currentFocus].classList.add("autocomplete-active");
+                }
+                function removeActive(x) {
+                    /*a function to remove the "active" class from all autocomplete items:*/
+                    for (var i = 0; i < x.length; i++) {
+                        x[i].classList.remove("autocomplete-active");
+                    }
+                }
+                function closeAllLists(elmnt) {
+                    /*close all autocomplete lists in the document,
+                    except the one passed as an argument:*/
+                    var x = document.getElementsByClassName("autocomplete-items");
+                    for (var i = 0; i < x.length; i++) {
+                        if (elmnt != x[i] && elmnt != inp) {
+                            x[i].parentNode.removeChild(x[i]);
+                        }
+                    }
+                }
+                /*execute a function when someone clicks in the document:*/
+                document.addEventListener("click", function (e) {
+                    closeAllLists(e.target);
+                });
+            }
+
+            var ab = new Array();
+            var ac=new Array();
+            {{ range $i,$hj:= $}}
+            ab[{{$i}}]={{.Caracteristique}};
+            ac[{{$i}}]=new Array();
+            ac[{{$i}}][0]={{.Id_caracteristique}};
+            ac[{{$i}}][1]=ab[{{$i}}];
+            {{end}}
+
+            autocomplete(document.getElementById("caracteristique1"), ab);
+
+            function CreateCategory(){
+
+                var data="";
+                var category=document.getElementById("category").value;
+                if(!category){
+                    alert("vous devez entrer la catégorie à créer");
+                    return;
+                }
+                for (i=1;i<caractNumber;i++){
+
+                    data=data+document.getElementById("caracteristique"+i).value+"/";
+
+                }
+                $.ajax({
+                    url: 'createcategory',
+                    type: 'post',
+                    dataType: 'json',
+                    data : {caracteristique: data,category: category },
+                    success : function(data) {
+                        $('#alert').html(response.message).slideDown();
+                    },
+                });
+                document.location.href="createproduct";
+            }
+        </script>
